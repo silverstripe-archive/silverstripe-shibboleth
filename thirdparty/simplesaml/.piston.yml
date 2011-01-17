@@ -1,0 +1,8 @@
+--- 
+format: 1
+handler: 
+  piston:remote-revision: 2421
+  piston:uuid: 44740490-163a-0410-bde0-09ae8108e29a
+lock: false
+repository_class: Piston::Svn::Repository
+repository_url: http://simplesamlphp.googlecode.com/svn/branches/simplesamlphp-1.6

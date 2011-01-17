@@ -1,0 +1,32 @@
+Group:
+    admins:
+        Code: administrators
+        Title: Administrators
+
+Member:
+    shibmember:
+        Email: shib@example.com
+        FirstName: Shib
+        Surname: User
+        UniqueIdentifier: Shib@User
+
+    root:
+        Email: admin
+        FirstName: Admin
+        Password: 123
+        Surname: User
+        UniqueIdentifier: Admin@User
+
+
+Group_Members:
+    group_members4:
+        GroupID: =>Group.admins
+        MemberID: =>Member.root
+
+
+Permission:
+    permission8:
+        Code: ADMIN
+        GroupID: =>Group.admins
+        Type: 1
+
