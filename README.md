@@ -17,12 +17,24 @@ copied into  `thirdparty/simplesaml/lib/_autoload.php` and is called as a
 fallback, if the SimpleSAML one fails. This is awkward, but effective.
 
  * Modified SimpleSAML library 1.6.1 (packaged in `thirdparty/simplesaml`)
- * Unix operating system (hardcoded `/tmp` paths)
+ * Unix operating system (hardcoded `/tmp` paths, `install.sh` script)
+ * Apache webserver (uses rewrite rules and `.htaccess`)
  * The project containing this module has to be named `nersc/` (see "Issues Tracking" below)
 
-## Installation
+## Installation ##
 
-Add this module to your *SilverStripe* installation.
+### Customizations to simplesaml ###
+
+The simplesaml login form shows in as a new tab in the default `Security/login` screen.
+In order to display it "inline" rather than as a full webpage, the default template has
+been modified in the form of a new module: `simplesaml-custom/modules/silverstripe/`.
+
+In order to copy the customizations into the `thirdparty/simplesaml` folder,
+run the following script:
+
+	install.sh
+
+### Apache rewriting
 
 You will also need to ensure the following condition is added to the standard SilverStripe `.htaccess`, before the final `RewriteRule`.
 
@@ -33,6 +45,8 @@ This ensures SimpleSAML can be accessed as needed from the web.
 Then, add this at the end of your `.htaccess`:
 
 	AcceptPathInfo On
+
+### Unique identifer in SilverStripe Member database
 
 The `shibboleth` module changes the unique identifier for members from the `Email` field to the `UniqueIdentifier` field. You will notice
 that the login form now asks for a different value. Newly created members should have the `UniqueIdentifier` field be set. Existing
@@ -84,24 +98,12 @@ Create the following file called `_ssp_environment.php` in your app root or one 
 	
 The usage of `_ssp_environment.php` allows loading of values into the `thirdparty/simplesamml/config/config.php` file via a custom class call to `SspConfigLoader::get_env_conf()`.
 
+IMPORTANT: Data in `thirdparty/metadata/` might change based on cronjobs and manual refreshes triggered by the thirdparty module code.
+
 ## SimpleSAML thirdparty UI administration ##
 
 The SimpleSAML library comes with its own UI, available at `http://localhost/shibboleth/thirdparty/simplesaml/www/module.php/core/frontpage_welcome.php`.
 It is authenticated (see `_ssp_environment.php`).
-
-## Modifications to SimpleSAML thirdparty library ##
-
- * Added SCIFED and NERSC IdP and SP to `metadata/` (`saml20-idp-remote.php`, `saml20-sp-remote.php`, `shib13-idp-remote.php`)
- * Added `modules/silverstripe`
- * Added `templates/metadata-silverstripe.php`
- * Certificates in `cert/`
- * Copied `config-templates` to `config`
- * Copied `metadata-templates` to `metadata`
- * Added `sapphireAutoload()` to `lib/_autoload.php`
- * Fixed PHP notices in `lib/SimpleSAML/Utilities.php`
- * Enabled modules in `modules/`: `cron` and `metarefresh` in order to refresh metadata automatically
- * Enabled modules in `modules/`: `discoservice` in order to 
- * Metadata for [Incommon](http://www.incommonfederation.org) added in `thirdparty/simplesaml/metadata`
 
 ## Issue Tracking ##
 
