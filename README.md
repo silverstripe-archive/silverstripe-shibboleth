@@ -1,10 +1,9 @@
 # Shibboleth module
 
 This module is a wrapper around the [`SimpleSAML` thirdparty library](http://simplesamlphp.org/), providing federated authentication.
-It uses the `Authenticator` interface to expose a new `ShibbolethAuthenticator`
-that is integrated into the login screen.
+It uses the `Authenticator` interface to expose a new `ShibbolethAuthenticator` that is integrated into the login screen.
 
-The module preconfigures and extends the `SimpleSAML` library, see "Modifications to SimpleSAML thirdparty library" below.
+**Caution: This module is just a light wrapper, and requires installation and configuration of the fairly complex thirdparty library (see [docs](http://simplesamlphp.org/docs/1.7/simplesamlphp-install)).**
 
 ## Requirements ##
 
@@ -33,6 +32,33 @@ In order to copy the customizations into the `thirdparty/simplesaml` folder,
 run the following script:
 
 	install.sh
+	
+### Customizations to thirdparty/shibbolet/config/config.php ###
+
+When copying the `thirdparty/shibboleth/config-templates/` folder to `thirdparty/shibboleth/config/`,
+you need to adjust some settings:
+
+	$config = array(
+		// ...
+		// Module is not in webroot, but rather a subfolder
+		'baseurlpath' => '<projectname>/shibboleth/thirdparty/simplesaml/www/',
+		// Use a custom theme
+		'theme.use' => 'silverstripe:silverstripe',
+	)
+
+
+The module includes a method to configure the thirdparty library through
+a `SspConfigLoader::get_env_conf()` call. This is an optional enhancement,
+used to keep the actual configuration outside of version control.
+You are free to write configuration without this helper.
+
+	include_once('../../../code/sspConfigLoader.php');
+	
+	$config = array(
+		// ...
+		// Example use of sspConfigLoader class
+		'auth.adminpassword' => SspConfigLoader::get_env_conf('config', 'auth.adminpassword'),
+	)
 
 ### Apache rewriting
 
