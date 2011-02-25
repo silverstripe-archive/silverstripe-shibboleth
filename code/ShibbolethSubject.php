@@ -22,6 +22,19 @@ class ShibbolethSubject extends DataObjectDecorator {
 		);
 	}
 
+    /*
+     * updateSummaryFields
+     * Ensure that the UniqueIdentifier field appears on the MemberTableField's   
+     * Add line when editing security groups. Failure to do so causes addtogroup()
+     * to add a new member record rather than adding the existing member to the   
+     * group being edited. QI bug 3898. This is necessary, but not sufficient.    
+     * Core patches are also needed to MemberTableField.js and SecurityAdmin::autocomplete().
+     * 
+     */
+    function updateSummaryFields(&$fields) {
+        $fields['UniqueIdentifier'] = 'Unique ID (shibboleth)';
+    }
+
 	// make sure the unique ID is set on every member
 	function onBeforeWrite() {
 		parent::onBeforeWrite();
