@@ -11,5 +11,4 @@ AjaxMemberLookup.afterAutocomplete = function(field, selectedItem) {
 	if(items[3] && form.elements.Password)
 		form.elements.Password.value = items[3];
 };
-AjaxMemberLookup.QI_has_been_modified = true;
 });
