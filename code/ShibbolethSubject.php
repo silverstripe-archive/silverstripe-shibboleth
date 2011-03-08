@@ -43,4 +43,11 @@ class ShibbolethSubject extends DataObjectDecorator {
 		// do update
 		DB::query("UPDATE \"Member\" SET \"Member\".\"UniqueIdentifier\" = \"Member\".\"Email\" WHERE \"Member\".\"UniqueIdentifier\" IS NULL");
 	}
+	
+	/*
+   * Ensure that the UniqueIdentifier field appears on MemberTableField autocomplete results.
+   */
+  function updateSummaryFields(&$fields) {
+      $fields['UniqueIdentifier'] = 'Unique ID (shibboleth)';
+  }
 }
