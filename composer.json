@@ -1,0 +1,19 @@
+{
+	"name": "silverstripe-labs/shibboleth",
+	"description": "This module is a wrapper around the SimpleSAML thirdparty library,
+		providing federated authentication. It uses the Authenticator interface to
+		expose a new ShibbolethAuthenticator that is integrated into the login screen.",
+	"type": "silverstripe-module",
+	"keywords": ["silverstripe-labs", "shibboleth", "security", "third-party"],
+	"authors": [
+	{
+		"name": "Ingo Schommer",
+		"email": "ingo@silverstripe.com"
+	}
+	],
+	"require":
+	{
+		"php": ">5.2.0",
+		"silverstripe/framework": ">2.4.3"
+	}
+}
