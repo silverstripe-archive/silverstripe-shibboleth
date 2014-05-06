@@ -1,6 +1,8 @@
 <?php
 
 DataObject::add_extension('Member', 'ShibbolethSubject');
+DataObject::add_extension( 'Member',        'ShibbolethSubject' );
+DataObject::add_extension( 'SecurityAdmin', 'ShibbolethSecurityAdminHelper' );
 Member::set_unique_identifier_field('UniqueIdentifier');
 
 Authenticator::register_authenticator('ShibbolethAuthenticator');
